@@ -58,7 +58,7 @@ int lexan()
 }
 
 char lookup(int lexeme) {
-    // search hashtable for lexeme
+    // searchHashTable hashtable for lexeme
     // return type of symbol
     return 0;
 }
