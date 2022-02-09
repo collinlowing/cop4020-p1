@@ -43,17 +43,18 @@ void deleteItem(HashItem *table[], const char *key) {
     }
 }
 
-// deletes everything in the hash table and the table pointer itself.
+// deletes everything in the hash table and the table pointer itself
 void deleteTable(HashItem *table[])
 {
+    // iterate through every index of the hash table
     for(int i; i < MAX_HASH_SIZE; i++)
     {
+        // if table item is not empty, delete it
         if(table[i] != NULL)
         {
             freeItem(table[i]);
         }
     }
-    free(table);
 }
 
 // inserts an item into the hash table
@@ -72,7 +73,7 @@ void insertItem(HashItem *table[], const char *key, const char *value) {
 void printTable(HashItem *table[]) {
     for (int i = 0; i < MAX_HASH_SIZE; i++) {
         for (HashItem *tmp = table[i]; tmp; tmp = tmp->next) {
-            printf("%s=%s\n", tmp->key, tmp->value);
+            printf("key: %s -> value: %s\n", tmp->key, tmp->value);
         }
     }
 }
