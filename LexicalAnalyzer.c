@@ -8,14 +8,8 @@
 
 #include "LexicalAnalyzer.h"
 
-typedef struct HashTable HashTable;
-
-char lookup(int lexeme);
-
 int lexan()
 {
-    char NOT_FOUND = 404;
-    HashTable symbolTable;
     while(true)
     {
         char ch = getchar();
@@ -43,7 +37,7 @@ int lexan()
 
                 if(type == NOT_FOUND)
                 {
-                    symbolTable.add(ch);
+                    insertItem(symbolTable, idLexeme, ch);
                     return idLexeme;
                 }
                 else
