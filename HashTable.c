@@ -3,7 +3,7 @@
   File Name: HashTable.c
   Project 1
 
-  store symbols and searchHashTable for matches
+  stores symbols, allows for search and insertion of symbols into a hashtable
 ***************************************************************/
 
 #include "HashTable.h"
