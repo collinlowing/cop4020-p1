@@ -11,10 +11,16 @@
 
 int main(int argc, char** argv) {
 
-    printf("You have entered %d arguments\n", argc - 1);
-
-    for (int i = 1; i < argc; i++)
-        printf("%s\n", argv[i]);
+    if(argc == 2)
+    {
+        char* filename = argv[1];
+        printf("filename: %s\n", filename);
+    }
+    else
+    {
+        printf("program was expecting a command line argument");
+        return 1;
+    }
 
     HashItem *table[MAX_HASH_SIZE] = {0};
 
