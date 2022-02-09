@@ -8,78 +8,71 @@
 
 #include "HashTable.h"
 
-struct Node *hashArray[SIZE];
-struct Node *tempNode;
-struct Node *symbol;
+// generate hash code from key char pointer
+unsigned int getHashCode(const char *key) {
+    unsigned int sum = 0;
 
-int hashCode(int key) {
-    return key % SIZE;
-}
-
-struct Node *searchHashTable(int key) {
-    //get the hash
-    int hashIndex = hashCode(key);
-
-    //move in array until an empty
-    while (hashArray[hashIndex] != NULL) {
-
-        if (hashArray[hashIndex]->key == key)
-            return hashArray[hashIndex];
-
-        //go to next cell
-        hashIndex++;
-
-        //wrap around the table
-        hashIndex %= SIZE;
+    // convert char pointer to unsigned int
+    for (int i = 0; key[i]; i++) {
+        sum += (unsigned char)key[i] * (i + 1);
     }
 
-    return NULL;
+    return sum % MAX_HASH_SIZE;
 }
 
-void insertHashTable(int key, int data) {
-
-    struct Node *symbol = (struct Node *) malloc(sizeof(struct Node));
-    symbol->data = data;
-    symbol->key = key;
-
-    //get the hash
-    int hashIndex = hashCode(key);
-
-    //move in array until an empty or deleted cell
-    while (hashArray[hashIndex] != NULL && hashArray[hashIndex]->key != -1) {
-        //go to next cell
-        hashIndex++;
-
-        //wrap around the table
-        hashIndex %= SIZE;
-    }
-
-    hashArray[hashIndex] = symbol;
+// frees up memory for item pointer and containing pointers
+void freeItem(HashItem *item) {
+    free(item->key);
+    free(item->value);
+    free(item);
 }
 
-struct Node *deleteHashTable(struct Node *) {
-    int key = symbol->key;
+// deletes an item from the hash table
+void deleteItem(HashItem *table[], const char *key) {
+    HashItem **tableLink = &table[getHashCode(key)];
 
-    //hash index with key
-    int hashIndex = hashCode(key);
-
-    //iterate through hash array until empty
-    while (hashArray[hashIndex] != NULL) {
-
-        if (hashArray[hashIndex]->key == key) {
-            struct Node *tempNode = hashArray[hashIndex];
-
-            //assign a dummy symbol at deleted position
-            hashArray[hashIndex] = tempNode;
-            return tempNode;
+    while (*tableLink) {
+        HashItem *tmp = *tableLink;
+        if (strcmp(tmp->key, key) == 0) {
+            *tableLink = tmp->next;  // unlink the list node
+            freeItem(tmp);
+            break;
+        } else {
+            tableLink = &(*tableLink)->next;
         }
-
-        //go to next cell
-        hashIndex++;
-
-        //wrap around the table
-        hashIndex %= SIZE;
     }
+}
 
-    return NULL;
+// deletes everything in the hash table and the table pointer itself.
+void deleteTable(HashItem *table[])
+{
+    for(int i; i < MAX_HASH_SIZE; i++)
+    {
+        if(table[i] != NULL)
+        {
+            freeItem(table[i]);
+        }
+    }
+    free(table);
+}
+
+// inserts an item into the hash table
+void insertItem(HashItem *table[], const char *key, const char *value) {
+    unsigned int code = getHashCode(key);
+    HashItem *item = malloc(sizeof(*item));
+    if (item != NULL) {
+        item->key = strdup(key);
+        item->value = strdup(value);
+        item->next = table[code];
+        table[code] = item;
+    }
+}
+
+// prints hash table
+void printTable(HashItem *table[]) {
+    for (int i = 0; i < MAX_HASH_SIZE; i++) {
+        for (HashItem *tmp = table[i]; tmp; tmp = tmp->next) {
+            printf("%s=%s\n", tmp->key, tmp->value);
+        }
+    }
 }
