@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include "HashTable.h"
+#include "LexicalAnalyzer.h"
 
 int main(int argc, char** argv) {
 
@@ -15,6 +16,8 @@ int main(int argc, char** argv) {
     {
         char* filename = argv[1];
         printf("filename: %s\n", filename);
+
+        file = fopen(filename, "r");
     }
     else
     {
@@ -22,14 +25,17 @@ int main(int argc, char** argv) {
         return 1;
     }
 
+    // test
     HashItem *table[MAX_HASH_SIZE] = {0};
-
     insertItem(table, "Bart", "first");
     insertItem(table, "Lisa", "Second");
     insertItem(table, "Foo", "bar");
     deleteItem(table, "Lisa");
     printTable(table);
+
+    //cleanup
     deleteTable(table);
+    fclose(file);
 
     return 0;
 }

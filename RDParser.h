@@ -14,10 +14,10 @@
 #include<stdlib.h>
 
 char lookahead;
-int id;
 
 int assignStatement();
-void match(int id);
+void match(char token);
+void factor();
 void expression();
 void term();
 

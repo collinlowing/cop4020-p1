@@ -8,11 +8,9 @@
 
 #include "RDParser.h"
 
-void factor();
-
 int assignStatement()
 {
-    match(id);
+    match(ID);
     if (lookahead != '=')
     {
         printf("error in assignStatement");
@@ -48,8 +46,8 @@ void term()
 
 void factor()
 {
-    if(lookahead == id)
-        match(id);
+    if(lookahead == ID)
+        match(ID);
     else if(lookahead == NUM)
         match(NUM);
     else if(lookahead = '(')
@@ -65,7 +63,7 @@ void factor()
     }
 }
 
-void match(int token)
+void match(char token)
 {
     if(lookahead == token)
         lookahead = lexan();

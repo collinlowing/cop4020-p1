@@ -8,50 +8,63 @@
 
 #include "LexicalAnalyzer.h"
 
+int numLines = 0;
+int numLexeme;
+FILE * file;
+char ch;
+
 int lexan()
 {
     while(true)
     {
-        char ch = getchar();
+        char ch = fgetc(file);
         // ignore space and tab
-        if (!(ch == ' ' | ch == '\t'))
+        if (ch == ' ' | ch == '\t') {   // do nothing
+        }                               // whitespace is ignored
+        else if(ch == '\n')
         {
-            if(ch == '\n')
+            numLines++;
+        }
+        else if (ch = '~') // ignore comments
+        {
+            while(ch != '\n') //skip over everything in comment line
             {
-                //increment line number
+                ch = fgetc(file);
             }
-            else if (ch = '~') // ignore comments
-            {
-                // remove line for comment
-            }
-            else if (isdigit(ch))
-            {
-                int numLexeme;
-                numLexeme = ch - '0'; // convert to int
-                return numLexeme;
-            }
-            else if (isalpha(ch))
-            {
-                int idLexeme = ch;
-                char type = lookup(idLexeme);
+        }
+        else if (isdigit(ch))
+        {
+            while()
+            numLexeme = ch - '0'; // convert to int
+            return NUM;
+        }
+        else if (isalpha(ch))
+        {
+            int idLexeme = ch;
+            char type = lookup(idLexeme);
 
-                if(type == NOT_FOUND)
-                {
-                    insertItem(symbolTable, idLexeme, ch);
-                    return idLexeme;
-                }
-                else
-                    return type;
+            if(type == NOT_FOUND)
+            {
+                insertItem(symbolTable, idLexeme, ch);
+                return idLexeme;
             }
-            else if(ch == EOF)
-                return DONE;
             else
-                return ch;
+                return type;
+        }
+        else if(ch == EOF)
+        {
+            return DONE;
+        }
+        else
+        {
+            return ch;
         }
     }
 }
 
-char lookup(int lexeme) {
+bool
+
+int lookup(char lexeme) {
     // searchHashTable hashtable for lexeme
     // return type of symbol
     return 0;
