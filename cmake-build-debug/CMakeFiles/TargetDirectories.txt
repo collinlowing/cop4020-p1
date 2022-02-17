@@ -1,3 +1,0 @@
-/home/cel/cop4020/cop4020-p1/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/cel/cop4020/cop4020-p1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/cel/cop4020/cop4020-p1/cmake-build-debug/CMakeFiles/cop4020_p1.dir
