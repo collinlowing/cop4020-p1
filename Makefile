@@ -1,13 +1,15 @@
 CXX = gcc
 CXXFLAGS = -Wall
 
-OBJS = HashTable.o main.o
+OBJS = LinkedList.o LexicalAnalyzer.o RDParser.o main.o
 
 app : ${OBJS}
 	${CXX} $(CXXFLAGS) -o $@ ${OBJS}
 
-main.o : main.c HashTable.h
-HashTable.o: HashTable.c HashTable.h
+main.o : main.c RDParser.h
+LinkedList.o: LinkedList.c LinkedList.h
+LexicalAnalyzer.o: LexicalAnalyzer.c LexicalAnalyzer.h LinkedList.h
+RDParser.o: RDParser.c RDParser.h LexicalAnalyzer.h
 
 clean :
 	rm ${OBJS} app

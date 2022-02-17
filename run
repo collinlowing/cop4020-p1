@@ -1,0 +1,33 @@
+#!/bin/sh
+echo "Building application"
+
+echo "Make clean"
+make clean
+echo "Make"
+make
+
+echo "Running a1"
+./app input/a1
+
+echo "Running a2"
+./app input/a2
+
+echo "Running a3"
+./app input/a3
+
+echo "Running a4"
+./app input/a4
+
+echo "Running a5"
+./app input/a5
+
+echo "Running a6"
+./app input/a6
+
+echo "Running a7"
+./app input/a7
+
+echo "Running a8"
+./app input/a8
+
+echo "Script complete"

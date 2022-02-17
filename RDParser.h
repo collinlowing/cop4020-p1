@@ -3,7 +3,7 @@
   File Name: RDParser.h
   Project 1
 
-  perform lexical analysis on a character string
+  parses a statement found in lexical analysis
 ***************************************************************/
 
 #ifndef COP4020_P1_RDPARSER_H
@@ -13,10 +13,13 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-char lookahead;
+extern int lookahead;
+extern int paraLeft;
+extern int paraRight;
 
+void parse();
 int assignStatement();
-void match(char token);
+void match(int token);
 void factor();
 void expression();
 void term();

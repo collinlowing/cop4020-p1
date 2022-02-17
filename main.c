@@ -7,35 +7,22 @@
 ***************************************************************/
 
 #include <stdio.h>
-#include "HashTable.h"
-#include "LexicalAnalyzer.h"
+#include "RDParser.h"
 
 int main(int argc, char** argv) {
-
     if(argc == 2)
     {
-        char* filename = argv[1];
-        printf("filename: %s\n", filename);
+        char* filename = argv[1]; // get filename from command line arguments
 
-        file = fopen(filename, "r");
+        init(filename);
+
+        parse();
     }
     else
     {
-        printf("program was expecting a command line argument");
+        printf("program was expecting a command line argument\n");
         return 1;
     }
-
-    // test
-    HashItem *table[MAX_HASH_SIZE] = {0};
-    insertItem(table, "Bart", "first");
-    insertItem(table, "Lisa", "Second");
-    insertItem(table, "Foo", "bar");
-    deleteItem(table, "Lisa");
-    printTable(table);
-
-    //cleanup
-    deleteTable(table);
-    fclose(file);
 
     return 0;
 }
